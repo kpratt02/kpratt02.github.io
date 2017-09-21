@@ -1,6 +1,10 @@
-body{
+h1{
 	font-family:Helvetica;
 	background-color:green;
 	text-align:center;
 }
-p.resume{ text-align:left;}
+p{
+	text-align:left;
+}
+
+
