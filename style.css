@@ -3,12 +3,6 @@ body{
 	background-color:green;
 	text-align:center;
 }
-.parent{
-	display: flex;
-	height: 300%;
-}
-.child{
-	width:100px;
-	height:100px;
-	margin: auto;
+.resume{
+	text-align:right;
 }
