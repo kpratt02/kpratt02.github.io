@@ -1,12 +1,44 @@
+@keyframes background-color-change {
+	from {background-color:white;}
+	to {background-color:black;}
+}
+
+body{
+	font-family:Times, Helvetica;
+	overflow-wrap:normal;
+}
+
 h1{
 	font-family:Helvetica;
 	background-color:green;
 	text-align:center;
 }
+
+h2{
+	padding-top:1%;
+}
+
+h3{
+	padding-top: 2%;
+}
+
 p{
 	text-align:left;
 }
+
 .resume {
-	text-align:right;
+	text-align:left;
+}
+.resume-description{
+	font-style:italic;
+}
+.resume-bullets{
+	text-indent:3%;
+	overflow-wrap:break-word;
+}
+.images{
+	text-align:center;
+	animation-name:background-color-change;
+	animation-duration:10s;
 }
 
