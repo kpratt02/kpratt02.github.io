@@ -1,8 +1,3 @@
-@keyframes background-color-change {
-	from {background-color:white;}
-	to {background-color:black;}
-}
-
 body{
 	font-family:Times, Helvetica;
 	overflow-wrap:normal;
