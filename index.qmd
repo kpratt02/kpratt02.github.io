@@ -1,5 +1,16 @@
 ---
 title: "Methods"
+subtitle: "Combine research design, causal inference, and econometric tools to measure the effects of social programs"
+details: |
+  HPM • Spring 2024<br>Jacob Wallace<br>Yale University
+sidebar: false
+toc: false
+page-layout: full
+format:
+  html:
+    template-partials:
+      - html/home/title-block.html
+course-logo: /files/img/eval-hires.png
 ---
 
 This is a Quarto website.
@@ -9,3 +20,5 @@ To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 ```{r}
 1 + 1
 ```
+
+
