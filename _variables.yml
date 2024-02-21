@@ -1,0 +1,33 @@
+author: Andrew Weiss
+
+instructor:
+  name: Dr. Jacob Wallace
+  name_no_title: Jacob Wallace
+  email: jacob.wallace@yale.edu
+  url: "https://www.jacobwswallace.com/home"
+  twitter: jwswallace
+  github: jacobwittwallace
+  office: "60 College St"
+  contact_policy: >-
+    E-mail and Slack are the best ways to get in contact with me. I will try to respond to all course-related e-mails and Slack messages within 24 hours (*really*), but also remember that life can be busy and chaotic for everyone (including me!), so if I don't respond right away, don't worry!
+  appointment_url: https://calendly.com/andrewheiss/
+
+course:
+  number: "HPM 587"
+  semester: "Spring 2024"
+  days: "Thursdays"
+  time: "4:30–7:00 PM"
+  location: "Winslow Auditorium, LEPH"
+  dates: "January–April 30, 2024"
+  github: "https://github.com/jacobwittwallace"
+  url: "https://kpratt02.github.io/"
+  copyright_year: "2022"
+  slack: "https://gsuevalf2022.slack.com"
+
+university:
+  name: Yale University
+  url: "https://www.yale.edu"
+
+school:
+  name: Yale School of Public Health
+  url: "https://ysph.yale.edu/"

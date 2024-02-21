@@ -1,0 +1,321 @@
+---
+title: "Methods in Health Services Research"
+# subtitle: "<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>"
+subtitle: "Lecture 1: Introduction"
+author: "Jacob Wallace"
+date: "Yale School of Public Health | [HPM 583](https://yale.instructure.com/courses/93126)"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts']
+    self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.width = 8, fig.height = 6)
+library(tidyverse)
+library(haven)
+library(formatR)
+library(stargazer)
+library(data.table)
+library(gganimate)
+library(ggdag)
+library(dagitty)
+library(jtools)
+library(purrr)
+library(Cairo)
+library(magick)
+library(ggthemes)
+theme_metro <- function(x) {
+  theme(panel.background = element_rect(color = '#FAFAFA',fill='#FAFAFA'),
+        plot.background = element_rect(color = '#FAFAFA',fill='#FAFAFA'),
+        text = element_text(size = 16), axis.text=element_text(size=14),
+        axis.title=element_text(size=20),
+        axis.title.x = element_text(margin = unit(c(5, 0, 0, 0), "mm")),
+        axis.title.y = element_text(margin = unit(c(0, 5, 0, 0), "mm")))
+}
+theme_void_metro <- function(x) {
+  theme_void() + 
+  theme(panel.background = element_rect(color = '#FAFAFA',fill='#FAFAFA'),
+        plot.background = element_rect(color = '#FAFAFA',fill='#FAFAFA'),
+        text = element_text(size = 16))
+}
+```
+
+```{css, echo=FALSE}
+img[src*='#center'] { 
+    display: block;
+    margin: auto;
+}
+```
+
+# Table of contents
+
+1. [Welcome and motivation](#prologue)
+
+2. [Warmup exercise](#equation)
+
+3. [Course details](#controls)
+
+4. [Introduction to causal inference](#inference)
+
+---
+class: inverse, center, middle
+name: prologue
+
+# Welcome and motivation
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+
+# The "big data" revolution has come, so what?
+
+- There is now more data than ever before
+  - Over the last two years alone, what % of the data in the world was created?
+  - How much of the world's stored data is generated in the healthcare industry?
+
+---
+
+# The "big data" revolution has come, so what?
+
+- Facebook, Amazon, Apple, Netflix, and Google (FAANG) have large **data science** teams that use data data to learn about the world and drive business decisions
+
+.center[
+<figure>
+  <img src="images/faang.jpeg" alt="Camden coalition" title="Camden coalition" width="40%">
+</figure>
+]
+
+--
+
+<br>
+
+- Nonprofits, governments, and healthcare organizations are increasingly focused on how to harness healthcare data to make better decisions, policies, and products
+
+--
+
+- Well that all sounds great, right?
+
+---
+
+# It's true that we have a lot of data in healthcare
+
+
+
+--
+
+### Problem Set 2
+  - Due February 21 at 3pm (~a week from today)
+  - Reminder: You can work together, ask for help, etc.
+
+--
+
+### Midterm 1
+  - Will be in-class on March 7th
+  - Covers material from the readings, lecture, and lab
+  - We will schedule a review session prior to the midterm
+
+---
+
+class: inverse, center, middle
+name: equation
+
+# Estimate = Estimand + Bias + Noise
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+
+# Recap
+
+- Ordinary least squares is the practice of fitting a line to data so as to explain the relationship more generally
+- It picks the straight line that minimizes the *sum of squared residuals*
+
+---
+
+# Recap
+
+---
+
+# Ordinary least squares
+
+- The line of best fit has:
+  - **intercept** of $\beta_{0}$, our prediction of $\hat{Y}$ when $X=0$; and
+  - **slope** of $\beta_{1}$, how much higher we predict $Y$ will be when $X$ is one unit higher
+
+- The *residual* is the difference between our prediction $\hat{Y}=\hat{\beta_{0}}+\hat{\beta_{1}}X$ and the actual number $Y$.
+
+$$\begin{equation}
+Y=\beta_{0}+\beta_{1}X+\varepsilon
+\end{equation}$$
+$$\begin{equation}
+\hat{Y}=\hat{\beta_{0}}+\hat{\beta_{1}}X
+\end{equation}$$
+
+---
+
+# Noise and bias
+
+- We have an idea that there's this *true* relationship $Y=\beta_{0}+\beta_{1}X+\varepsilon$
+
+- We can call that relationship the *data generating process*: The underlying equation that explains where our observations of $Y$ come from
+
+- What we are trying to do by estimating OLS is to get estimates $\hat{\beta_{0}}$ and $\hat{\beta_{1}}$ that are as close as possible to $\beta_{0}$ and $\beta_{1}$
+
+- But, we must be on the lookout for two sources of error in our estimates...
+
+--
+
+![](gifs/lookout.gif#center)
+
+---
+
+# Estimate = Estimand + Bias + Noise
+
+- There are two main sources of error in our estimates
+  - One is *bias* (endogeneity) which is systematic
+  - The other is *sampling variation* which is random
+
+--
+
+Consider the estimate $\hat{\beta_{1}}$ of the estimand $\beta_{1}$:
+
+$$\begin{equation}
+\hat{\beta_{1}}=\beta_{1}+\text{Bias}+\text{Noise}
+\end{equation}$$
+
+--
+
+Today we begin by discussing how we can use multiple linear regression to try and control for **bias** and then discuss *sampling variation* as a source of **noise**
+
+---
+
+class: inverse, center, middle
+name: controls
+
+# Bias
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+
+# Bias
+
+- Last week we used DAGS to help identify confounding and discussed the **backdoor criterion** for isolating a causal effect
+
+- This week we're going to talk about how to use multiple linear regression to control for those pesky confounders
+
+---
+
+# Endogeneity recap
+
+- Suppose we believe that our true model looks like this:
+
+$$Y = \beta_{0}+\beta_{1}X+\varepsilon$$
+
+- where $\varepsilon$ is everything that determines $Y$ other than $X$
+
+--
+
+- If $X$ is related to some of those things, we have **endogeneity** (or bias)
+
+--
+
+- Estimating the above model by OLS, it will mistake the effect of those *other* things for the effect of $X$, and our estimate of $\hat{\beta_{1}}$ won't represent the true $\beta_{1}$ because of this bias.
+
+--
+
+- **Concept check:** If $Y$ was "height in feet" and $X$ was "height inches", what would be in the error term?
+
+---
+
+# Shorts and ice cream
+
+Consider the following model:
+
+$$IceCreamEating = \beta_{0}+\beta_{1}ShortsWearing+\varepsilon$$
+
+- Surely $ShortsWearing$ isn't the *only* thing that determines your $IceCreamEating$, in fact the true $\beta_{1}$ is probably 0.
+
+--
+
+- Everything else is in the error term!
+
+- $Temperature$, $Income$, $Age$, and so on and so on...
+
+---
+
+# The Error Term
+
+$$IceCreamEating = \beta_{0}+\beta_{1}ShortsWearing+\varepsilon$$
+
+- Isn't it really bad to leave out a bunch of important stuff? Depends on the goal...
+
+--
+
+- If you want to *predict $Y$ as accurately as possible* then we're probably going to do a bad job of it
+
+--
+
+- But if our goal is to estimate the causal relationship between $X$ and $Y$ then it can be okay to leave some stuff out
+
+--
+
+- The latter goal - understanding **causal relationships** - is what econometrics is more concerned with
+
+--
+
+- The former goal - **predicting accurately** - is more the domain of data scientists 
+
+---
+
+# Error Term Assumptions
+
+- The most important assumption about the error term is that it is *unrelated to $X$*
+
+--
+
+- If $X$ and $\varepsilon$ are correlated, $\hat{\beta}_1$ will be *biased* - its distribution no longer has the true $\beta_1$ as its mean
+
+--
+
+- In these cases we can say "we have **endogeneity**" or "we have **omitted variable bias**" or "we have **confounding**" or "we have **selection bias**"
+
+- No amount of additional sample size will fix that problem!
+
+---
+
+# But we have a way of dealing with it
+
+![](gifs/linear_regression.gif#center)
+
+Source: [Twitter](https://mobile.twitter.com/theotheredmund/status/1349453230762196992)
+
+---
+
+class: inverse, center, middle
+name: epilogue
+
+# Epilogue
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+
+
+# Where are we going
+
+- Next class: More on how to use linear regression to estimate causal effects
+- Problem set 2 is due February 21
+- **Midterm 1** will be in-class on March 7th
+
+<br>
+
+![](gifs/thatsall.gif#center)
+
+
+
