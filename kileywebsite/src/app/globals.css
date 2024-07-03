@@ -1,0 +1,423 @@
+body {
+    font-family: 'Plus Jakarta Sans';
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+section {
+    padding: 20px 0;
+}
+
+section#about {
+    background: #f4f4f4;
+}
+
+#about .about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+#about .left-column, 
+#about .right-column {
+  flex: 1;
+  min-width: 250px;
+}
+
+#about .left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#about .left-column img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+#about .left-column h3 {
+  text-align: center;
+  margin: 10px 0 0;
+}
+
+#about .right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#about .right-column h4 {
+  margin-top: 20px;
+}
+
+section#skills {
+    background: #e2e2e2;
+}
+
+section#experience {
+    background: #f4f4f4;
+}
+
+section#education {
+    background: #e2e2e2;
+}
+
+section#contact {
+    background: #f4f4f4;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.experience-education {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+section {
+  flex: 1;
+}
+
+#experience .job,
+#education .education-item {
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.timeline {
+  border-left: 2px solid #333;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.timeline h3 {
+  margin-top: 0;
+}
+
+.timeline h4 {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.timeline p {
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background: #333;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background: #333;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #555;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Styles for Skills Section */
+#skills {
+  background-color: #e2e2e2;
+  padding: 40px 0;
+}
+
+#skills h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.skill-item {
+  background-color: #fff;
+  color: #333;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+}
+
+.skill-item:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-5px);
+}
+
+.skill-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.i {
+  font-size: 50px;
+}
+
+#contact {
+  background-color: #f9f9f9;
+  padding: 40px 0;
+}
+
+#contact .container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#contact h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#contact .form-group {
+  margin-bottom: 15px;
+}
+
+#contact label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+#contact input,
+#contact textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#contact textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+#contact button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#contact button:hover {
+  background-color: #555;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-item {
+  display: inline-block;
+}
+
+.footer-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+button img {
+  margin-right: 8px;
+}
+
+#projects-publications {
+  padding: 40px 0;
+}
+
+#projects-publications .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.project-card {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+  perspective: 1000px;
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+}
+
+.project-card.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.project-card.flipped .back {
+  transform: rotateY(0deg);
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s;
+}
+
+.back {
+  transform: rotateY(-180deg); 
+  transition: transform 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: #333;
+  padding: 0px;
+  text-align: center;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.card-title {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-left: 5px;
+}
+
+.card-title h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.back p {
+  margin-bottom: 20px;
+}
+
+.back a {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.back a:hover {
+  background-color: #0056b3;
+}
