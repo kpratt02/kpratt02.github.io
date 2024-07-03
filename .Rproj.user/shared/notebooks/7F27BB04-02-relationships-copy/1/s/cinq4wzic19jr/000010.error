@@ -1,0 +1,1 @@
+{"frames":[{"func":"readPNG(\"images_new/tidy-tuesday.png\")","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in readPNG(\"images_new/tidy-tuesday.png\") : \n  unable to open images_new/tidy-tuesday.png\n"}

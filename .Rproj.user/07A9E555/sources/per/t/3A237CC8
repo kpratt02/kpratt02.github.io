@@ -1,0 +1,31 @@
+{
+    "id": "3A237CC8",
+    "path": "~/Documents/GitHub/kpratt02.github.io/index.qmd",
+    "project_path": "index.qmd",
+    "type": "quarto_markdown",
+    "hash": "3788624479",
+    "contents": "",
+    "dirty": false,
+    "created": 1706135607875.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "rmdVisualMode": "true",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "187:0",
+        "cursorPosition": "0,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1707507264,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1707507264321,
+    "read_only": false,
+    "read_only_alternatives": []
+}

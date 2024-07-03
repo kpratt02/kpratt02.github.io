@@ -1,0 +1,6 @@
+"0","library(png)"
+"0","library(grid)"
+"0","img <- readPNG(""images_new/tidy-tuesday.png"")"
+"2","Error in readPNG(""images_new/tidy-tuesday.png"") : 
+  unable to open images_new/tidy-tuesday.png
+"

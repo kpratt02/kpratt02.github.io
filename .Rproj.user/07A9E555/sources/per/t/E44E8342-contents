@@ -1,0 +1,1138 @@
+---
+title: "Description, Prediction, and Causation"
+author: "Jacob Wallace"
+date: "Updated `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+# add white background
+    css: ['default', 'metropolis', 'metropolis-fonts']
+    self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.width = 8, fig.height = 6)
+library(tidyverse)
+library(haven)
+library(formatR)
+library(stargazer)
+library(data.table)
+library(gganimate)
+library(ggdag)
+library(dagitty)
+library(jtools)
+library(purrr)
+library(magick)
+library(ggthemes)
+theme_metro <- function(x) {
+  theme(panel.background = element_rect(color = '#FAFAFA',fill='#FAFAFA'),
+        plot.background = element_rect(color = '#FAFAFA',fill='#FAFAFA'),
+        text = element_text(size = 16), axis.text=element_text(size=14),
+        axis.title=element_text(size=20),
+        axis.title.x = element_text(margin = unit(c(5, 0, 0, 0), "mm")),
+        axis.title.y = element_text(margin = unit(c(0, 5, 0, 0), "mm")))
+}
+theme_void_metro <- function(x) {
+  theme_void() + 
+  theme(panel.background = element_rect(color = '#FAFAFA',fill='#FAFAFA'),
+        plot.background = element_rect(color = '#FAFAFA',fill='#FAFAFA'),
+        text = element_text(size = 16))
+}
+```
+
+```{css, echo=FALSE}
+img[src*='#center'] { 
+    display: block;
+    margin: auto;
+}
+red_text{
+color:red;
+}
+blue_text{
+color:blue;
+}
+green_text{
+color:green;
+}
+medskip{
+style="margin-bottom: 1em;"
+}
+.footnotesize {
+  font-size: 0.8em;
+}
+```
+
+# 1. Course logistics
+
+---
+
+# Where are we going?
+
+* Last week: Introduction
+* This week: Description, Prediction, and Causation
+* Next week: Causality and social experiments
+
+---
+
+# Lab and study halls
+
+* <red_text>Lab</red_text> will meet this week
+  * Times listed on the syllabus
+  * Attend any lab time that you would like
+
+<medskip></medskip>
+* <red_text>Study halls</red_text> will start this week
+  * Fridays, 9-11am (location to be announced on Canvas)
+  * If you can't make these times, we encourage you to take advantage of office hours
+  * We may add an additional time / change these based on interest and schedules
+
+---
+
+# Problem sets
+
+* <red_text>Problem set 1</red_text> was due last Sunday
+  * Goal was to get you up and running on R, RStudio, and RMarkdown
+  * This stuff is always hard at first, stick with it!
+  * We will release an answer key shortly.
+  * Reminder: You can (and are encouraged) to work with others on these!
+
+<medskip></medskip>
+* <red_text>Problem set 2</red_text> released yesterday
+  * Will be due Sunday at 11:59pm EST
+  * Goal is data visualization in R and thinking about correlation vs. causation
+  * For those that are new to R I'd suggest trying ChatGPT to help you work on this
+  * Lab time will be used to start the R portion of this problem set
+
+---
+
+# Tidy Tuesday
+
+```{r fig.width=5, fig.height=5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/tidy-tuesday.png")
+ grid.raster(img)
+```
+
+* Weekly public data visualization exercises, see Canvas for link and details on how to earn extra credit.
+
+---
+
+# 2. Describing Data
+
+# What is data?
+
+* Merriam-Webster: "factual information (such as measurements or statistics) used as a basis for reasoning, discussion, or calculation."    
+  * Hmmm...that's pretty broad. Yes, there's lots of data out there!
+
+<medskip></medskip>
+
+* An almost universal feature of data is that it rarely comes in a form that can directly help answer our questions.
+  * Approximately 80% of "research" is finding, structuring, and cleaning data
+  * <red_text>Not</red_text> the focus of this class, but we provide some scaffolding
+
+<medskip></medskip>
+* Structured vs. unstructured data
+
+---
+
+# How are data born? The big picture
+
+* Data can be collected, or it can be derived from information collected for other purposes
+
+<medskip></medskip>
+* Common methods of data collection
+  * Surveys
+  * Administrative Sources
+  * Web scraping
+
+<medskip></medskip>
+* Sampling
+  * Often can only collect a <red_text>sample</red_text> from a larger <red_text>population</red_text>
+  * This raises concerns about:
+    * Is the sample <red_text>representative</red_text> of the population (e.g., think about Wordle scores people chose to post)
+    * Whether patterns in the sample are due to random chance / statistical noise
+
+---
+
+# The type of data we will focus on
+
+* This class focuses on structured <red_text>rectangular</red_text> data:
+  * Rectangular: rows are observations and columns are variables
+  * Non-rectangular data: social network data (e.g., Twitter relationships), spatial data structures
+
+<medskip></medskip>
+* Key types of rectangular data
+  * Cross-sectional data
+  * Time series data
+  * Panel data
+---
+```{r fig.width=5, fig.height=5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/friends-data-types.png")
+ grid.raster(img)
+```
+
+---
+
+# First step in any analysis is to summarize and visualize your data!
+  * Descriptive statistics
+  * Data visualizations
+
+* Descriptive statistics and visualizations depend on the data
+  * Continuous variables (e.g., monthly income)
+  * Count variables (e.g., number of hospitalizations last year)
+  * Ordinal variables (e.g., "elementary school", "middle school", "high school")
+  * Categorical variables (e.g., "Medicaid", "Medicare", "Private insurance")
+  
+---
+```{r fig.width=5, fig.height=5, fig.align='center', echo=FALSE}
+library(jpeg)
+library(grid)
+img <- readJPEG("images_new/summary_statistics.jpeg")
+ grid.raster(img)
+```
+
+---
+# For categorical or ordinal variables (1/2)
+
+* We can describe the full distribution of categorical or ordinal data by simply giving the percentage of observations in each category:
+
+<medskip></medskip>
+
+```{r fig.width=5, fig.height=5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/categorical.png")
+grid.raster(img)
+```
+---
+
+# For categorical or ordinal variables (2/2)
+
+* Below is the exact same information in a figure format
+<medskip></medskip>
+
+```{r fig.width=3, fig.height=3, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/categorical_viz.png")
+ grid.raster(img)
+```
+
+* You've now fully described this variable, there's no more information in this variable
+
+---
+
+# For continuous or count variables
+
+* These are a bit trickier, can't do a frequency table since often only one observation will take a particular value. Instead, one common approach is to use a <red_text>histogram</red_text>:
+
+```{r fig.width=3, fig.height=3, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/describingvariables-histogram-1.png")
+ grid.raster(img)
+```
+---
+
+# With continuous variable can then go all the way to a *density*
+
+```{r fig.width=4, fig.height=4, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/describingvariables-histtodensity-1.png")
+ grid.raster(img)
+```
+
+---
+
+# Summarizing distributions
+
+* We could just stare at histograms/densities of our variables, but that's a lot of information to take in
+
+* Instead we tend to focus on summarizing two aspects of the data:
+  * <red_text>Central tendency</red_text>: where is the middle/typical/average value.
+  * <red_text>Spread</red_text> around the center: are all the values to the center or spread out?
+  
+---
+  
+# Center of the data
+
+* "Center" of the data: typical/average value.
+
+* <red_text>Mean:</red_text> sum of the values divided by the number of observations
+
+$\bar{x}= \frac{1}{n}\sum_{i=1}^{n}x_{i}$
+
+* <red_text>Median:</red_text> the central value of a variable
+  * middle value if the number of entries is odd
+  * mean of two middle values if number of entries is even
+
+<medskip></medskip>
+* In **R**: <red_text>mean()</red_text> and <red_text>median()</red_text>.
+
+---
+
+# Mean vs median (1/2)
+
+* Median more robust to **outliers**:
+  * Example 1: data $={0,1,2,3,5}$. Mean? Median?
+  * Example 2: data $={0,1,2,3,100}$. Mean? Median? 
+
+--
+  
+```{r echo=TRUE, results=TRUE}
+example_1 <- c(0,1,2,3,5)
+example_2 <- c(0,1,2,3,100)
+```
+
+First let's look at how the mean changes
+
+```{r echo=TRUE, results=TRUE}
+mean(example_1)
+mean(example_2)
+```
+
+---
+# Mean vs median (2/2)
+
+Now let's look at how the median changes
+
+```{r echo=TRUE, results=TRUE}
+median(example_1)
+median(example_2)
+```
+
+<medskip></medskip>
+* What does Elon Musk do the mean vs median income?
+
+---
+# Spread of the data: Are the values of the variable close to the center?
+
+* **Range:** [min(*X*), max(*X*)]
+
+* **Quantile** (quartile, percentile, etc): divide data into equal sized groups.
+  * 25th percentile = lower quartile (25% of the data below this value)
+  * 50th percentile = median(50% of the data below this value)
+  * 75th percentile = upper quartile (75% of the data below this value)
+  
+* **Interquartile range** (IQR): a measure of variability
+  * How spread out is the middle half of the data?
+  * Is most of the data really close to the median or are the values spread out?
+
+* **R** function: <red_text>range()</red_text>, <red_text>summary()</red_text>, <red_text>IQR()</red_text>
+
+---
+# Standard deviation
+
+$\text standard deviation = \sqrt{\frac{1}{n-1}\sum_{i-1}^{n}(x_{i}-\bar{x})^{2}}$
+
+* Steps:
+  1. Subtract the mean from each data point.
+  2. Square each resulting difference.
+  3. Take the sum of these values
+  4. Divide by $n-1$ (or $n$, doesn't matter much)
+  5. Take the square root
+
+* Why not just take the average deviations from mean without squaring?
+
+* **Variance** = $\text{standard deviation}^{2}$
+
+* **R** functions: <red_text>sd()</red_text>, <red_text>var()</red_text>
+
+---
+# Summary
+
+* We will be working with (structured) rectangular data in this class
+
+* First step is to summarize and visualize your data
+  * Approach to visualization depends on the type of data
+
+* Key summary statistics measure central tendency and spread
+  * There are others (e.g., skewness) but less of a focus for now
+
+
+---
+# 3. Describing Relationships
+---
+# Describing relationships
+
+* For most research questions we are not just interested in the distribution of a single variable
+
+* Instead, we are interested in the *relationship* between two or more variables 
+
+* For an initial exploration of this topic we will use data from a study by Emily Oster in the *American Economic Review: Insights*.
+
+---
+# Research question
+
+* <red_text>Research question:</red_text> Do the health benefits of recommended medications look better than they actually are because already-otherwise healthy people are more likely to follow the recommendations?
+
+* Examines the use of vitamin E supplements, which were only recommended for a brief period of time 
+
+* Answers the question by examining the relationship between taking Vitamin E, other indicators of caring about your health like not smoking, and outcomes like mortality
+
+---
+# First step: Plot your data!
+
+* Scatterplots are one way to show relationship between 2 continuous variables
+
+```{r fig.width=3, fig.height=3, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/describingrelationships-scatterplot-1.png")
+ grid.raster(img)
+```
+
+* This figure appears to show that heart health tends to be a little lower at older ages
+
+---
+# How else can we examine the relationship between two variables?
+
+* When describing a single variable we plotted and summarized what are called *unconditional* distributions
+
+* Now we're interested in <red_text>conditional distributions</red_text>: the distribution of one variable given the value of another variable.
+
+* Can anyone provide an example of a conditional probability? --
+  * Approximately 25 million children under 6 in the United States (2 in my family)
+  * The unconditional Pr(someone is under 6) is $\approx 25/330=7.5\%$.
+  * But probability someone who loves *baby shark* is under 6 is much higher than 7.5\%.
+    * So we could ask "among all people that love baby shark what share are under 6?"
+    * Also described as "probability someone is under 6 *conditional* on loving baby shark."
+
+* Learning that someone loves baby shark changes the probability that we can place on them being under 6.
+
+<!--# Conditional distributions use the same logic
+
+```{r fig.width=3.25, fig.height=3.25, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/describingrelationships-exercise-1.png")
+ grid.raster(img)
+```
+
+* Those who exercise vigorously take larger doses of vitamin E when they take it, their distribitution is shifted to the right.-->
+
+---
+# Conditional distributions use the same logic
+
+* Now let's look at whether someone takes vitamin E at all and compare those who currently smoke to those who don't currently smoke
+
+```{r fig.width=2.5, fig.height=2.5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/describingrelationships-smoking-1.png")
+ grid.raster(img)
+```
+
+* A higher proportion of people take vitamin E in the non-smoking crowd, consistent with Oster's hypothesis
+
+---
+# Conditional means
+
+* Now that we have the idea of a conditional distribution we can extend to calculate *any* feature of a distribution conditional on the value of another variable
+
+* For now we will focus on the <red_text>conditional mean</red_text>: Given a certain value of $X$, what do I expect the mean of $Y$ to be?
+  * Once we know this we can describe the relationship between two variables fairly well
+  * If the mean of $Y$ is higher conditional on a higher value of $X$, then $Y$ and $X$ are positively related --- **econometrics is just a fancy way of calculating conditional means**
+
+---
+# Relatively straightforward for categorical (or ordinal) data
+
+* You can just calculate the mean for all observations with each value of your categorical variable
+
+```{r fig.width=3.5, fig.height=3.5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/oster-time-series.png")
+ grid.raster(img)
+```
+
+* Oster's data show that proportion of people taking vitamin E was highest during the period in which it was recommended
+
+---
+# A little more complicated when conditioning on a continuous variable
+
+* Can't calculate the conditional mean for specific values of the continuous variable because the bins would be sparse (or empty)
+
+* One approach, akin to a histogram, is to calculate conditional means for a *range* of values for the variable we're conditioning on (e.g., BMI)
+
+```{r fig.width=2.5, fig.height=2.5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/describingrelationships-cut-1.png")
+ grid.raster(img)
+```
+
+---
+# But the binning approach is a bit arbitrary
+
+* Should we use quartiles, deciles, ventiles? 
+
+* The smaller the bins the more our stepwise-function overfits the local data and the harder to draw generalizable conclusions
+
+```{r fig.width=2.5, fig.height=2.5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/overfitting.png")
+ grid.raster(img)
+```
+
+---
+# Quantifying the relationship between two variables
+
+* Another approach is to assess the covariance or correlation coefficients
+
+```{r fig.width=4.5, fig.height=4.5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/oster-correlations.png")
+ grid.raster(img)
+```
+
+---
+# Quantifying the relationship between two variables
+
+But you must always plot your data
+
+```{r fig.width=2.5, fig.height=2.5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/anscombe.png")
+ grid.raster(img)
+```
+
+* Which of these has the largest correlation?
+
+---
+# Quantifying the relationship between two variables
+
+* Covariance and correlation coefficient are two approaches
+
+* Another simply way to relate two variables (e.g., $Y_{i}$ and $X_{i}$) is a line:
+
+$\text y = mx + b$
+
+  * where $y$ is the value of the line on the vertical axis, $x$ is the value on the horizontal axis, $m$ is the slope, and $b$ is the intercept.
+
+- But, the world is messy and data points may not all lie on the same line
+
+---
+# 4. Simple linear regresion model
+---
+# Enter the simple linear regression model
+
+* <red_text>Quantitative social science</red_text> analyses begin with the following premise: $Y$ and $X$ are two variables, we are interested in "explaining $Y$ in terms of $X$", or in studying "how $Y$ varies with a change in $X$."
+
+* Three issues must be considered:
+  1. Need to specify the functional form of relationship between $Y$ and $X$
+  2. There is never an exact relationship between $Y$ and $X$, need some statistics
+  3. Need to know conditions for measuring a <red_text>causal relationship</red_text> between $Y$ and $X$ 
+
+--
+
+<medskip></medskip>
+
+Arguably the most important equation in this class:
+
+$\text Estimand = Estimate + Bias + Noise$
+---
+# Let's be more concrete
+
+* <red_text>Hypothetical:</red_text> It's 2014 and you're asked to speculate about what effect the ACA coverage expansions may have on the health status of the near-elderly
+
+* You're given state-level data on health insurance rates and rates of self-reported health and told to have at it.
+
+* These data are from the [Behavioral Risk Factor Surveillance System](https://www.cdc.gov/brfss/index.html) for 60-64 year-olds during the period 2011-2013
+
+---
+# Consider relationship between insurance and self-reported health
+
+* Can we use state-level insurance rates $X_{i}$ to explain what share of individuals in a state are in "good" health $Y_{i}$?
+
+```{r, echo=FALSE}
+knitr::kable(
+  data.frame(
+    Y = c("Dependent variable", "Explained variable", "Response variable", "Predicted variable", "Regressand", "Left-hand side var"),
+    X = c("Independent variable", "Explanatory variable", "Control variable", "Predictor variable", "Regressor", "Right-hand side var")
+  ),
+  col.names = c("$Y$", "$X$"),
+  align = c("l", "l"),
+  escape = FALSE
+) %>%
+  kableExtra::kable_styling(full_width = FALSE) %>%
+  kableExtra::column_spec(1, width = "45%")
+```
+---
+# Look at the data
+
+Let's look at a couple rows of the data---it's already in <red_text>tidy</red_text> format
+<medskip></medskip>
+```{r import, echo=FALSE}
+df <- read_dta("data_new/state_age_year_2008_to_2017.dta")
+
+# Subset to needed columns and rename
+df <- as_tibble(df) %>%
+  select(state_abbrev, age, year, healthplan, good_or_btr_health) %>%
+  rename(state = state_abbrev, good_health = good_or_btr_health, share_insured = healthplan)
+
+# Now rescale variables
+df_base <- df %>%
+  mutate(good_health = good_health*100, share_insured = share_insured*100)
+
+# create a dataframe with the near-elderly
+df_60to64 <- df_base %>%
+  filter(age >= 60 & age <65)
+
+df <- df_60to64 %>%
+  filter(year >= 2011 & year <= 2013)
+
+df <- df %>%
+  group_by(state) %>%
+  summarise(share_insured = mean(share_insured), good_health = mean(good_health))
+
+setDT(df)[state == "DC", good_health := 82.1]
+
+df_nodc <- df %>%
+  filter(state != "DC")
+
+```
+
+<span class="footnotesize">
+
+```{r head, echo=TRUE}
+head(df)
+
+```
+</footnotesize>
+
+<medskip></medskip>
+Rows are observations (states in this case) and columns are variables
+
+---
+# Plot the data
+
+
+```{r pre-aca, echo=FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+# ggplot(df_nodc, aes(x = share_insured, y = good_health)) + geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + theme_minimal()
+
+
+```
+
+---
+# This leads to the linear regression equation
+
+```{r fig.width=5, fig.height=5, fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("images_new/linear_regression.png")
+ grid.raster(img)
+```
+
+---
+# Our example
+
+* Let's apply this to our example with health insurance and self-reported health:
+
+$\text{ShareGoodHealth}_{i} = \beta_{0} + \beta_{1}\text{ShareInsured}_{i} + \epsilon_{i}$
+
+* <red_text>Intercept $\beta_{0}$:</red_text> average share the population in good health when everyone is uninsured (i.e., $ShareInsured_{i}$ = 0)
+
+* <red_text>Slope $\beta_{1}$:</red_text> average change in the share of the population in good health when the health insurance rate increase by one unit.
+  - Different interpretations if share is scaled 0-1 vs. 0-100 pp.
+
+* But <red_text> $\beta_{0}$ </red_text> and <red_text> $\beta_{1}$ </red_text> are unknown. How can we estimate them?
+
+---
+# Fitting the model
+
+$\text ShareGoodHealth_{i} = \beta_{0} + \beta_{1}ShareInsured_{i} + \epsilon_{i}$
+
+
+* $\beta_{0}$ and $\beta_{1}$ are the true parameter values (unknowable due to chance error).
+
+* We can use the data to estimate <red_text> $\hat{\beta_{0}}$ </red_text> and <red_text> $\hat{\beta_{1}}$ </red_text>, our best guesses for $\beta_{0}$ and $\beta_{1}$.
+
+* This is often called "fitting" the regression model.
+
+---
+# Line of best fit
+
+```{r line_of_best_fit, echo=FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+ggplot(df_nodc, aes(x = share_insured, y = good_health)) + geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + theme_minimal() + geom_smooth(method="lm",formula=y~x, se=FALSE, linewidth=1)
+
+
+```
+
+---
+# Why not this line?
+
+```{r not_line_of_best_fit, echo=FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+ggplot(df_nodc, aes(x = share_insured, y = good_health)) + geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + theme_minimal() + geom_abline(intercept=120,slope=-.5, color="blue", linewidth=1)
+```
+
+---
+# Ordinary Least Squares (OLS) is one method for fitting the line
+
+* <red_text>Fitted/predicted value</red_text> of $Y$: $\hat{Y_{i}}=\hat{\beta_{0}}+\hat{\beta_{1}}X_{i}$
+
+* <red_text>Residual</red_text> measures the distance between the fitted line and an actual observation: $\hat{\epsilon_{i}}=Y_{i}-\hat{Y{i}}$
+  * $\hat{\epsilon_{i}}$ is distinct from $\epsilon_{i}$, which is the true, but unobserved, error.
+
+* OLS picks $\hat{\beta_{0}}$ and $\hat{\beta_{1}}$ to minimize the <red_text>sum of the squared residuals (SSR):</red_text>
+$\text SSR = \sum_{i}^{N}\hat{\epsilon_{i}}=\sum_{i}^{N}(Y_{i}-\hat{\beta_{0}}-\hat{\beta_{1}})^{2}$
+
+---
+# Let's run OLS to retrieve our coefficients
+
+```{r ols_2, echo=FALSE, results='asis'}
+fit <- lm(good_health ~ share_insured, data = df_nodc)
+summary_fit <- summary(fit)
+coefficients_table <- summary_fit$coefficients[, c("Estimate", "Std. Error", "t value", "Pr(>|t|)")]
+knitr::kable(coefficients_table, caption = "Coefficient Estimates")
+```
+
+---
+# How should we interpret the coefficients?
+
+```{r ols_3, echo=FALSE, results='asis'}
+html_table <- paste(
+  "<table>",
+  "<caption>Regression of Health Status on Insurance Rate</caption>",
+  "<tr><td>Share Insured, pp</td><td>", coefficients_table[1, "Estimate"], "</td><td>", coefficients_table[1, "Std. Error"], "</td><td>", coefficients_table[1, "t value"], "</td><td>", coefficients_table[1, "Pr(>|t|)"], "</td></tr>",
+  "<tr><td>Constant</td><td>", coefficients_table[2, "Estimate"], "</td><td>", coefficients_table[2, "Std. Error"], "</td><td>", coefficients_table[2, "t value"], "</td><td>", coefficients_table[2, "Pr(>|t|)"], "</td></tr>",
+  "</table>"
+)
+
+cat(html_table)
+
+```
+
+- <red_text>Intercept:</red_text> Predicted share of the population in good health if the share insured is 0.
+
+- <red_text>Slope:</red_text> a one-unit (pp) increase in the health insurance $\approx$ 0.86 increase in the share of the state's population in good health.
+
+---
+# Let's look at OLS in action
+
+```{r ols_residuals_0, echo=FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+ggplot(df_nodc, aes(x = share_insured, y = good_health)) + geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + theme_minimal() + geom_smooth(method="lm",formula=y~x, se=FALSE, linewidth=1)
+
+
+```
+
+---
+# Let's look at OLS in action
+
+```{r line_of_best_fit_residuals, echo=FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+df_nodc$predicted <- predict(fit)
+df_nodc$residuals <- residuals(fit)
+
+ggplot(df_nodc, aes(x = share_insured, y = good_health)) + 
+  geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + 
+  theme_minimal() + geom_smooth(method="lm",formula=y~x, se=FALSE, linewidth=1) + 
+  geom_point(aes(y = predicted), shape = 1, alpha = 0) + geom_segment(aes(xend = share_insured, yend = predicted), alpha = .5)
+
+```
+
+---
+# The OLS coefficients in the general bivariate case
+
+* The general equation for the <red_text>intercept</red_text> is:
+$\hat{\beta_{0}} = \bar{Y}-\hat{\beta_{1}}\bar{X}$
+* And the general equation for the <red_text>slope</red_text> is:
+$\hat{\beta_{1}} = \frac{Cov(X,Y)}{Var(X)}=\frac{\sigma_{XY}}{\sigma^{2}_{X}}$
+
+* Which is just a re-scaled correlation coefficient
+$\hat{\beta}_{1}=\underbrace{\frac{\sigma_{XY}}{\sigma_{X}\sigma_{Y}}}_{\mbox{Corr. coef.}}\times \frac{\sigma_{Y}}{\sigma_{X}}=\frac{\sigma_{XY}}{\sigma_{X}^{2}}$
+
+* Since <red_text>correlation $\neq$ causation</red_text>, there is nothing about a regression slope coefficient that implies causation...assumptions must be made.
+
+---
+# Model fit
+
+* Common measure of model fit is the <red_text>coefficient of determination</red_text> or $R^{2}$:
+
+$\text R^{2}=1-\frac{\text{Sum of squared residuals } (SSR)}{\text{Total sum of squares } (TSS)}$
+
+* <red_text>Common interpretation:</red_text> $R^{2}$ is the fraction of variation in $Y_{i}$ "explained by" $X_{i}$.
+  * $R^{2} = 0 \rightsquigarrow$ no linear relationship
+  * $R^{2} = 1 \rightsquigarrow$ perfect linear relationship
+
+<medskip></medskip>
+- $R^{2}$ does not tell us if our regression is "good" or "bad"...it just tells us how well it fits in-sample.
+
+---
+# Total sum of squares 
+
+```{r tss, echo=FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+fit_constant <- lm(good_health ~ 1, data = df_nodc)
+
+df_nodc$predicted_constant <- predict(fit_constant)
+df_nodc$residuals_constant <- residuals(fit_constant)
+
+ggplot(df_nodc, aes(x = share_insured, y = good_health)) + 
+  geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + 
+  theme_minimal() + geom_smooth(method="lm",formula=y~1, se=FALSE, linewidth=1) + 
+  geom_point(aes(y = predicted_constant), shape = 1, alpha = 0) + geom_segment(aes(xend = share_insured, yend = predicted_constant), alpha = .5)
+
+```
+The total sum of squares can be calculated as:
+
+---
+# Sum of squared residuals
+
+```{r ssr, echo=FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+ggplot(df_nodc, aes(x = share_insured, y = good_health)) + 
+  geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + 
+  theme_minimal() + geom_smooth(method="lm",formula=y~x, se=FALSE, linewidth=1) + 
+  geom_point(aes(y = predicted), shape = 1, alpha = 0) + geom_segment(aes(xend = share_insured, yend = predicted), alpha = .5)
+
+```
+
+---
+# Calculating R-squared in our example
+
+```{r rsquared, echo=TRUE, results = TRUE}
+# Regress good health on insurance rate and store residuals
+fit <- lm(good_health ~ share_insured, data = df_nodc)
+df_nodc$residuals <- residuals(fit)
+
+# Regress good health on constant and store residuals
+fit_constant <- lm(good_health ~ 1, data = df_nodc)
+df_nodc$residuals_constant <- residuals(fit_constant)
+
+1 - (sum(df_nodc$residuals^2)/sum(df_nodc$residuals_constant^2))
+
+```
+
+---
+# Let's compare that to what we got
+
+
+```{r ols_4, echo=FALSE, results='asis'}
+fit <- lm(good_health ~ share_insured, data = df_nodc)
+summary_fit <- summary(fit)
+coefficients_table <- summary_fit$coefficients[, c("Estimate", "Std. Error", "t value", "Pr(>|t|)")]
+knitr::kable(coefficients_table, caption = "Coefficient Estimates")
+```
+
+---
+# 5. Prediction with OLS
+
+<!--* DC was excluded from our analysis. Let's use our regression to predict the share of DC's near-elderly population in good (or better) health
+
+* Our coefficients were $\beta_{0}=1.09$ and $\beta_{1}=0.86$. What other info do we need? --
+  * The share of the near-elderly population with health insurance was 96.0%
+
+* With this information, go ahead and calculate the $\approx$ predicted value for DC.
+
+* Check how you did:
+
+$\text 1.09 + 0.86 \times 95.8 \approx <red_text>83.7</red_text> $
+
+# DC has a high health insurance rate for the near-elderly
+
+```{r ols_dc_line, echo=FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+ggplot(df_nodc, aes(x = share_insured, y = good_health)) + geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + theme_minimal() + geom_smooth(method="lm",formula=y~x, se=FALSE, linewidth=1, fullrange=TRUE) + geom_vline(xintercept = 96.05, linetype='dotted')
+
+
+```
+# Guesses for which state had a similarly high share insured (in 2011-2013)?
+--
+
+```{r ols_dc_line_abbrev, echo=FALSE, message = FALSE, warning = FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+ggplot(df_nodc, aes(x = share_insured, y = good_health)) + geom_point(color="blue", alpha = 0) + xlab("Share Insured (%)") + ylab("Share in good health (%)") + theme_minimal() + geom_smooth(method="lm",formula=y~x, se=FALSE, linewidth=1, fullrange=TRUE) + geom_vline(xintercept = 96.05,linetype='dotted') + geom_text(label=df_nodc$state)
+
+
+```
+
+# Here's DC (in red). How'd we do? Not bad...
+
+```{r ols_dc_line_add, echo=FALSE, message = FALSE, warning = FALSE, fig.align='center', fig.height=3, fig.width=5.5}
+
+dc <- subset(df, state == "DC")
+
+ggplot(df, aes(x = share_insured, y = good_health)) + geom_point(color="blue") + xlab("Share Insured (%)") + ylab("Share in good health (%)") + theme_minimal() + geom_smooth(data = df_nodc, method="lm",formula=y~x, se=FALSE, linewidth=1, fullrange=TRUE) + geom_vline(xintercept = 96.05,linetype='dotted') + geom_point(data=dc, color="red")
+
+
+```
+
+# How well does our regression predict changes in health due to the ACA?
+
+- Let's compare insurance rates for 2014-17 to the 2011-13 rates we'd been analyzing. ACA led large coverage gains for near-elderly (see below):
+
+```{r aca_counterfactual, echo=FALSE, message = FALSE, warning = FALSE, fig.align='center', fig.height=2.5, fig.width=5}
+
+df_preaca <- df_60to64 %>%
+  filter(year >= 2011 & year <= 2013) %>%
+  filter(state != "DC") %>%
+  group_by(state) %>%
+  summarise(share_insured = mean(share_insured), good_health = mean(good_health))
+
+df_postaca <- df_60to64 %>%
+  filter(year >= 2014) %>%
+  filter(state != "DC") %>%
+  group_by(state) %>%
+  summarise(share_insured = mean(share_insured), good_health = mean(good_health))
+
+df_merge <- merge(df_preaca, df_postaca, by='state') %>%
+  mutate(insurance_change = share_insured.y - share_insured.x)
+
+ggplot(data=df_merge, aes(x=reorder(state,insurance_change), y=insurance_change)) +
+  geom_bar(stat="identity", fill="steelblue") +
+  theme_minimal() + ylab("Change in health insurance rate, pp") +
+  theme(axis.text.x = element_text(size=4)) +
+  xlab("") + theme(axis.title=element_text(size=8))
+
+```
+# How well does our regression predict changes in health due to the ACA?
+
+* Let's look at Arizona:
+  * The increase in the health insurance rate for the near-elderly was $\approx$ 7%.
+  * With our estimated $\beta_{0}=1.09$ and $\beta_{1}=0.86$ what is the predicted change in the share of near-elderly Arizonans that report being in good (or better) health? --
+\begin{align*}
+    \Delta{\mbox{ShareGoodHealth}}  &= \beta_{1}\times\Delta{\mbox{ShareInsured}} \\
+                                    &= 7 \times 0.86 \approx 6.0\%
+\end{align*}
+
+What actually happened to share of folks in good health in Arizona? --
+```{r aca_az, echo=FALSE, message = FALSE, warning = FALSE, fig.align='center', fig.height=2.5, fig.width=5}
+
+df_merge %>%
+  filter(state == "AZ") %>%
+  select(state, "Pre-ACA Insured" =share_insured.x, "Post-ACA Insured" = share_insured.y, "Pre-ACA Health" =good_health.x, "Post-ACA Health" = good_health.y)
+
+```
+Hmmm...Arizona didn't see much of an improvement in self-reported health, what about other states?
+
+# Predicted changes in health due to the ACA coverage expansions
+![Predicted](images/prepost_aca_pred_change.pdf){width=75%, fig.align='center'}
+
+# Actual changes in health from 2011-2013 to 2014-2017
+![Actual](images/prepost_aca_change.pdf){width=75%, fig.align='center'}
+
+# How did our predictions fare?
+
+1. District of Columbia
+    * <red_text>What we did:</red_text> Predicting out-of-sample the share of near-elderly individuals in DC in good health based on DC's health insurance rate
+    * <red_text>How we did:</red_text> Not bad.
+
+2. Changes in health pre-post ACA
+    * <red_text>What we did:</red_text> Predicting how self-reported health changes pre-post ACA using the observed changes in health insurance rates
+    * <red_text>How we did:</red_text> We did not do well.
+
+Why did we do well on one prediction and not on the other?-->
+---
+# 6. Distinguishing goals of data analysis
+---
+# Distinguishing goals of data analysis
+
+When we analyze data, what is our ultimate goal?
+
+1. <blue_text>Description</blue_text>: Simply characterize observed patterns in the data.
+2. <red_text>Causation</red_text>: Learn about causal relationships. If we change X, how will Y change?
+3. <green_text>Prediction</green_text>: Be able to guess the value of one variable from other information
+
+<medskip></medskip> 
+
+--
+
+Examples of a research question in each category from our previous example:
+
+1. <blue_text>Descriptive</blue_text>: What share of near-elderly Americans have health insurance?
+2. <red_text>Causal</red_text>: Does health insurance coverage increase self-reported health?
+3. <green_text>Predictive</green_text>: What share of DC's population are in good or better health?
+
+---
+# What's shared across all goals of data analysis:
+
+We start with an **outcome variable** called $Y$. We want to know some things:
+
+* Where do the values of $Y$ come from?
+* How does $Y$ relate to other variables?
+
+--
+
+The **data generating process** (DGP) in the real world determines the values of $Y$.
+
+* The true DGP is unknowable, a black box
+
+```{r, out.width="60%", echo=F}
+library(png)
+library(grid)
+img <- readPNG("images_new/black-box-general.png")
+ grid.raster(img)
+```
+
+---
+# The Data Generating Process
+
+```{r, out.width="60%", echo=F}
+library(png)
+library(grid)
+img <- readPNG("images_new/black-box-general.png")
+ grid.raster(img)
+```
+
+We could write this picture as a function: $Y = f(x_{1}, x_{2}, x_{3},...x_{N})$
+
+But some big questions remain:
+
+* What are all these inputs $x_1, x_2, ...$?
+* What is the functional form? (How does the box work?)
+
+---
+# The Data Generating Process
+
+For some questions, the set of inputs and their functional form are discoverable.
+
+**Physics example:** How long does it take for an object to fall from a particular height?
+
+$$ t = \sqrt{2h/g} \approx 0.452 \sqrt{h}  $$
+
+Newton and others did experiments to learn the functional form.
+
+```{r, out.width="60%", echo=F}
+library(png)
+library(grid)
+img <- readPNG("images_new/black-box-physics1.png")
+ grid.raster(img)
+```
+
+---
+# The Data Generating Process
+
+Even in physics, this is just an approximation to the real world.
+
+```{r, out.width="75%", echo=F}
+library(png)
+library(grid)
+img <- readPNG("images_new/black-box-physics2.png")
+ grid.raster(img)
+```
+
+The true DGP is more complicated, but it is still limited to a certain number of factors.
+
+* We can understand the vast majority of the "duration of free fall" DGP.
+
+---
+# The Data Generating Process
+
+**Social science is harder.** People have free will!
+
+* Inputs? Any outcome is determined by far more than 10 or even 100 inputs.
+  - Many inputs are impossible to measure.
+
+* Functional form? No universal laws guaranteeing they are simple.
+  - Inputs often interact with each other.
+
+Characterizing the full DGP for *anything* is typically far beyond the realm of possibility.
+
+```{r, out.width="60%", echo=F}
+library(png)
+library(grid)
+img <- readPNG("images_new/black-box-general.png")
+ grid.raster(img)
+```
+
+---
+# Types of goals
+ 
+1. <blue_text>Descriptive:</blue_text> Document/quantify observed relationships between inputs and outputs.
+
+   - Does not not necessarily tell us about the true DGP.
+   - Helps us understand the world and inspires further research.
+<medskip></medskip>
+
+2. <red_text>Causal:</red_text> Try to understand *one piece* of how the box works (the true DGP).
+
+   - When you *change* one factor, how does it change the result?
+   - Helps us make decisions about what to do (in policy, business, personal life).
+   - **Focus of this class**
+<medskip></medskip>
+
+3. <green_text>Predictive:</green_text> Create your own box to try to match the output.
+
+   - Doesn't matter if it works the same, or if you have the correct inputs.
+   - Only matters how closely your box produces the same result.
+   - Helps us know what's likely to happen in a new situation.
+   
+---
+# Prediction vs. causal inference
+
+When would <red_text>causal inference</red_text> be useful (to a policymaker, business executive, individual)? When would <green_text>prediction</green_text> be useful?
+
+1. **Birth weight $(Y)$ ~ air pollution $(x)$** 
+--
+  - Causal inference: How strictly should air pollution be regulated?
+  - Prediction: What areas might need more prenatal services? 
+  
+--
+  
+<medskip></medskip>
+  
+2. **Income $(Y)$ ~ educational attainment $(x)$** 
+--
+  - Causal inference: Should I get an MPH? Should we invest in public education?
+  - Prediction: What types of people should we advertise to? 
+  
+--
+
+<medskip></medskip>
+
+3. **Vaccination rates $(Y)$ ~ health care infrastructure $(x)$** 
+--
+  - Causal inference: Can infrastructure investment increase vaccination rates?
+  - Prediction: Which communities need the most aid during a COVID-19 wave?
+
+---
+# Distinguishing goals is key to getting analyses right
+
+Examples from Athey (2017):
+
+1. **Which patients should be given hip replacement surgery through Medicare?** 
+--
+    - Can use SML to predict who will die within a year from other causes
+    - But who should be given priority among those predicted to survive? 
+--
+
+<medskip></medskip>
+
+2. **Predicting the probability of customer "churn" from a company or service** 
+--
+    - Goal is to keep the customers, so once predict those "at risk" have to intervene
+    - Overlap between highest risk of churn and responding to interventions only 50%
+    - Treating churn as a prediction problem yields lower payoffs to the firm 
+    
+--
+
+<medskip></medskip>
+
+Example from my life, tennis
+
+---
+# 7. Potential Outcomes
+---
+# Where are we going
+
+- <red_text>Next class:</red_text> Introduction to causality and social experiments
+
+- <red_text>Lab</red_text> meets this week. Labs this week will review course materials and then focus on R programming skills development.
+
+- <red_text>Problem set 2</red_text> due this Sunday at 11:59pm.
+
+
