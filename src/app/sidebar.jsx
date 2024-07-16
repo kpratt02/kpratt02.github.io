@@ -24,7 +24,6 @@ function Sidebar() {
             <li><a href="#experience" onClick={toggleSidebar}>Experience and Education</a></li>
             <li><a href="#skills" onClick={toggleSidebar}>Skills</a></li>
             <li><a href="#projects" onClick={toggleSidebar}>Projects, Publications, and Passions</a></li>
-            <li><a href="#contact" onClick={toggleSidebar}>Contact</a></li>
           </ul>
         </nav>
       </div>

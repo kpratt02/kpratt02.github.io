@@ -15,13 +15,14 @@ export default function Home() {
           <Sidebar />
           <section id="about">
             <div className="container">
+              <h1>Welcome!</h1>
               <div className="about-content">
                 <div className="left-column">
                   <img src={faceImage.src} alt="A picture of Kiley, smiling" />
-                  <h1>Kiley Pratt</h1>
                 </div>
                 <div className="right-column">
-                  <p>Thanks for visiting my website! Im a recent masters graduate from Yale School of Public Health, with concentrations in Health Policy & Management and Climate Change and Health. Currently working on creating AI public health solutions, combatting health impacts of climate change, and consuming a lot of maple syrup.</p>
+                  <h2>Kiley Pratt, MPH</h2>
+                  <p>I am a recent masters graduate from Yale School of Public Health, with concentrations in Health Policy & Management and Climate Change and Health. I am currently based between Vermont and New Haven CT, and am working on creating AI public health solutions, combatting health impacts of climate change, and consuming a lot of maple syrup.</p>
                 </div>
               </div>
             </div>
@@ -36,27 +37,26 @@ export default function Home() {
                       <h3>Community Outcomes and Feedback Advisor, Digital Platform Advisor</h3>
                       <h4>Clemmons Family Farm</h4>
                       <p>Jan 2021 - May 2024</p>
-                      <p>Conducted quantitative evaluation of programmatic impact, monitoring and evaluation techniques, and data methods. Managed a digital technology package for collection, analysis, and dissemination of stories as data sources</p>
+                      <p>Conducted quantitative evaluation of programmatic impact, monitoring and evaluation techniques, and data methods</p>
                     </div>
                     <div className="timeline">
                       <h3>Stolwijk Summer Research Fellow</h3>
                       <h4>Johannah Bernstein / Earth4All</h4>
                       <p>May 2023 - Sept 2023</p>
-                      <p>Researched and presented the most important policy changes to achieve SDG targets, using outputs of a system dynamics model</p>
+                      <p>Researched and presented most important policy changes to achieve SDG targets</p>
                       <a href="https://ysph.yale.edu/news-article/internship-spotlight-kiley-pratt-mph-24-health-policy-climate-change-and-health-concentration/" target="_blank">Interview about my experience</a>
                     </div>
                     <div className="timeline">
                       <h3>Project Manager, Operations Supervisor, Epidemic Intelligence Unit Associate</h3>
                       <h4>Partners in Health, Community Tracing Collaborative</h4>
                       <p>Oct 2020 - Jan 2022</p>
-                      <p>Supported over 2.6 million calls by designing, implementing, and monitoring workflows for 500+ contact tracers, as well as leading 70+ staff in the EIU and serving as connector of Local Health Liaisons and Outbreak Investigators</p>
+                      <p>Designed, implemented, and monitored workflows and connected Local Health Liaisons and Outbreak Investigators</p>
                       <a href="https://www.mass.gov/info-details/covid-19-community-tracing-collaborative-ctc" target="_blank">More information about the CTC</a>
                     </div>
                     <div className="timeline">
-                      <h3>Associate Product Manager, ServiceNow Integration, JSUI and Search API</h3>
+                      <h3>Associate Product Manager</h3>
                       <h4>Coveo</h4>
                       <p>May 2019 - Oct 2020</p>
-                      <p>Oversaw 3 development teams through product development cycles and collaborated with UX designers, marketing, sales, and product specialist teams to define roadmap, improvements and priorities</p>
                     </div>
                   </div>
                 </div>
@@ -72,7 +72,8 @@ export default function Home() {
                       <p>2022 - 2024</p>
                       <p>Concentrations: Health Policy and Management, Climate Change and Health</p>
                       <p>Honors and Fellowships: Stolwijk Fellow, CBEY 2050, Solomon Center, Hortsmann Scholar</p>
-                      <p>Student Leadership: Teaching Fellow for courses in Health Policy, HPM Practicum, and Methods in Health Services Research. President of Students for Sustainability and Waste Reduction at YSPH (SWAY), and member of Boosted FC Soccer Team</p>
+                      <p>Student Leadership: Teaching Fellow for courses in Health Policy, HPM Practicum, and Methods in Health Services Research.</p>
+                      <p>President of Students for Sustainability and Waste Reduction at YSPH (SWAY), and member of Boosted FC Soccer Team</p>
                     </div>
                     <div className="timeline">
                       <h3>Bachelor of Science in Cognitive and Brain Sciences</h3>

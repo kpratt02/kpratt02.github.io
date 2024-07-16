@@ -8,7 +8,7 @@ import Footer from "./footer.jsx";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Kiley's Website",
+  title: "Kileys Website",
   description: "Welcome to my virtual homepage!",
 };
 

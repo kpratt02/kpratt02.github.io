@@ -4,7 +4,7 @@ import './globals.css';
 function Footer() {
   return (
       <div className="container">
-      <h3>Id love to hear from you!</h3>
+      <h3>I would love to hear from you!</h3>
         <div className="footer-content">
           <div className="footer-item">
             <a href='mailto:kiley.pratt@yale.edu'>
