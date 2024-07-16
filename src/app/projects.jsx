@@ -14,7 +14,7 @@ import weact from "../../public/weact.png";
 
 const projects = [
   { 
-    description: 'Co-authored paper, with WE ACT for Environmental Justice, examining the intersection of climate change, electrifcation, lead exposure, and health equity in New York City as part of a Climate Justice Clinic', 
+    description: 'Co-authored paper, with WE ACT for Environmental Justice, examining the intersection of climate change, electrifcation, lead exposure, and health equity in NYC', 
     title: "Electrification and Lead in NYC",
     type: 'Project', 
     link: 'https://ysph.yale.edu/yale-center-on-climate-change-and-health/policy-and-public-health-practice/ccch-housing-report_478129_284_48542_v3.pdf', 
@@ -35,14 +35,14 @@ const projects = [
     backgroundImage: gisfinal.src
   },
   { 
-    description: 'Digital platform lead for the Beneath Our Skin project, which "used digital storytelling and visual and performing arts as culturally relevant methods to gather and share stories from Black Vermonters about their COVID-19 vaccination choices and experiences."', 
+    description: 'Digital platform lead for the Beneath Our Skin project, which "used digital storytelling and visual and performing arts... to gather and share stories from Black Vermonters about their COVID-19 vaccination choices"', 
     title:"Beneath Our Skin Interim Report",
     type: 'Research', 
     link: 'https://www.clemmonsfamilyfarm.org/beneath-our-skin-interim-report.html', 
     backgroundImage: skinimage.src
   },
   { 
-    description: 'Secondary author and research team member on this project, which reports "findings and recommendations generated from the refinement and use of a structured tool for CFFs Wellness Check-ins with artists who are members of the Vermont African-American/African Diaspora Artists Network"', 
+    description: 'Secondary author and research team member on this project, which reports "findings and recommendations generated from... a structured tool for CFFs Wellness Check-ins with... members of the Vermont African-American/African Diaspora Artists Network"', 
     title: "How Are We Doing?",
     type: 'Research', 
     link: 'https://www.clemmonsfamilyfarm.org/', 
