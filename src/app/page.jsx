@@ -22,10 +22,6 @@ export default function Home() {
                 </div>
                 <div className="right-column">
                   <p>Thanks for visiting my website! Im a recent masters graduate from Yale School of Public Health, with concentrations in Health Policy & Management and Climate Change and Health. Currently working on creating AI public health solutions, combatting health impacts of climate change, and consuming a lot of maple syrup.</p>
-                  <h4>Contact Information</h4>
-                  <p>Email: kiley.pratt@yale.edu</p>
-                  <p>Phone: (802) 825-8972</p>
-                  <p>Currently based in: New Haven, Connecticut</p>
                 </div>
               </div>
             </div>
