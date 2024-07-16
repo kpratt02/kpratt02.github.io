@@ -14,18 +14,18 @@ import weact from "../../public/weact.png";
 
 const projects = [
   { 
-    description: 'Co-founder of a platform to improve access to public resources and benefits for older adults and their caregivers.', 
-    title: "Upkeep Care",
-    type: 'Project', 
-    link: 'https://ysph.yale.edu/news-article/upkeep-care-awarded-2024-thorne-prize-for-innovation/', 
-    backgroundImage: upkeepImage.src
-  },
-  { 
     description: 'Co-authored paper, with WE ACT for Environmental Justice, examining the intersection of climate change, electrifcation, lead exposure, and health equity in New York City as part of a Climate Justice Clinic', 
     title: "Electrification and Lead in NYC",
     type: 'Project', 
     link: 'https://ysph.yale.edu/yale-center-on-climate-change-and-health/policy-and-public-health-practice/ccch-housing-report_478129_284_48542_v3.pdf', 
     backgroundImage: weact.src
+  },
+  { 
+    description: 'Co-founder of a platform to improve access to public resources and benefits for older adults and their caregivers.', 
+    title: "Upkeep Care",
+    type: 'Project', 
+    link: 'https://ysph.yale.edu/news-article/upkeep-care-awarded-2024-thorne-prize-for-innovation/', 
+    backgroundImage: upkeepImage.src
   },
   { 
     description: 'Used ArcGIS Pro to analyse the impact of oil pipelines on health outcomes, land, and water, particularly tribal lands in the Dakotas.', 
