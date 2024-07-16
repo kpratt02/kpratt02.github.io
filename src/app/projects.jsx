@@ -21,6 +21,20 @@ const projects = [
     backgroundImage: upkeepImage.src
   },
   { 
+    description: 'Co-authored paper, with WE ACT for Environmental Justice, examining the intersection of climate change, electrifcation, lead exposure, and health equity in New York City as part of a Climate Justice Clinic', 
+    title: "Electrification and Lead in NYC",
+    type: 'Project', 
+    link: 'https://ysph.yale.edu/yale-center-on-climate-change-and-health/policy-and-public-health-practice/ccch-housing-report_478129_284_48542_v3.pdf', 
+    backgroundImage: weact.src
+  },
+  { 
+    description: 'Used ArcGIS Pro to analyse the impact of oil pipelines on health outcomes, land, and water, particularly tribal lands in the Dakotas.', 
+    title: 'Impact of Oil Pipelines on Land and Water',
+    type: 'Final Project', 
+    link: 'https://drive.google.com/file/d/1Se1wvE-7JZbcfpEiqNoZrBOu-hgkWkmH/view', 
+    backgroundImage: gisfinal.src
+  },
+  { 
     description: 'Digital platform lead for the Beneath Our Skin project, which "used digital storytelling and visual and performing arts as culturally relevant methods to gather and share stories from Black Vermonters about their COVID-19 vaccination choices and experiences."', 
     title:"Beneath Our Skin Interim Report",
     type: 'Research', 
@@ -40,20 +54,6 @@ const projects = [
     type: 'Publication', 
     link: 'https://feps-europe.eu/publication/sdgs-for-all-strategic-scenarios/', 
     backgroundImage: sdgs.src
-  },
-  { 
-    description: 'Co-authored paper, with WE ACT for Environmental Justice, examining the intersection of climate change, electrifcation, lead exposure, and health equity in New York City as part of a Climate Justice Clinic', 
-    title: "Electrification and Lead in NYC",
-    type: 'Project', 
-    link: 'https://ysph.yale.edu/yale-center-on-climate-change-and-health/policy-and-public-health-practice/ccch-housing-report_478129_284_48542_v3.pdf', 
-    backgroundImage: weact.src
-  },
-  { 
-    description: 'Used ArcGIS Pro to analyse the impact of oil pipelines on health outcomes, land, and water, particularly tribal lands in the Dakotas.', 
-    title: 'Impact of Oil Pipelines on Land and Water',
-    type: 'Final Project', 
-    link: 'https://drive.google.com/file/d/1Se1wvE-7JZbcfpEiqNoZrBOu-hgkWkmH/view', 
-    backgroundImage: gisfinal.src
   },
   { 
     description: 'Co-authored testimony in support of AI regulation in Connecticut. Further testimony examples available; please email me to request!', 
