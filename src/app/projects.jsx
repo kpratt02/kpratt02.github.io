@@ -10,6 +10,7 @@ import upkeepImage from "../../public/upkeep.jpg";
 import marathon from "../../public/marathon.jpg";
 import camino from "../../public/camino.jpg";
 import guitar from "../../public/guitar.jpg";
+import weact from "../../public/weact.png";
 
 const projects = [
   { 
@@ -41,6 +42,13 @@ const projects = [
     backgroundImage: sdgs.src
   },
   { 
+    description: 'Co-authored paper, with WE ACT for Environmental Justice, examining the intersection of climate change, electrifcation, lead exposure, and health equity in New York City as part of a Climate Justice Clinic', 
+    title: "Electrification and Lead in NYC",
+    type: 'Project', 
+    link: 'https://ysph.yale.edu/yale-center-on-climate-change-and-health/policy-and-public-health-practice/ccch-housing-report_478129_284_48542_v3.pdf', 
+    backgroundImage: weact.src
+  },
+  { 
     description: 'Used ArcGIS Pro to analyse the impact of oil pipelines on health outcomes, land, and water, particularly tribal lands in the Dakotas.', 
     title: 'Impact of Oil Pipelines on Land and Water',
     type: 'Final Project', 
@@ -65,12 +73,6 @@ const projects = [
     title: "Running",
     type: 'Passion', 
     backgroundImage: marathon.src
-  },
-  { 
-    description: 'Bluegrass guitar player, singer, and general enthusiast', 
-    title: "Music",
-    type: 'Passion', 
-    backgroundImage: guitar.src
   }
   // Add more projects as needed
 ];
