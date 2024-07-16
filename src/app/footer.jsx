@@ -11,6 +11,7 @@ function Footer() {
             <button>
               <img src="https://cdn-icons-png.flaticon.com/128/3178/3178158.png" alt="Email Icon" className="footer-icon" />
               Email
+              kiley.pratt@yale.edu
             </button>
             </a>
           </div>
@@ -19,6 +20,7 @@ function Footer() {
               <button>
                 <img src="https://cdn-icons-png.flaticon.com/128/455/455705.png" alt="Phone Icon" className="footer-icon" />
                 Call me, beep me
+                (802) 825 - 8972
               </button>
             </a>
           </div>
@@ -27,6 +29,7 @@ function Footer() {
               <button>
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-plain.svg" alt="LinkedIn Icon" className="footer-icon" />
                 LinkedIn
+                @Kiley-Pratt
               </button>
             </a>
           </div>
@@ -35,6 +38,7 @@ function Footer() {
               <button>
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub Icon" className="footer-icon" />
                 GitHub
+                @kpratt02
               </button>
             </a>
           </div>
