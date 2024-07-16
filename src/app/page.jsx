@@ -40,7 +40,7 @@ export default function Home() {
                       <h3>Community Outcomes and Feedback Advisor, Digital Platform Advisor</h3>
                       <h4>Clemmons Family Farm</h4>
                       <p>Jan 2021 - May 2024</p>
-                      <p>Conducted quantitative evaluation of programmatic impact, monitoring and evaluation techniques, and data methods. Developed a digital technology package for collection, analysis, and dissemination of stories as data sources</p>
+                      <p>Conducted quantitative evaluation of programmatic impact, monitoring and evaluation techniques, and data methods. Managed a digital technology package for collection, analysis, and dissemination of stories as data sources</p>
                     </div>
                     <div className="timeline">
                       <h3>Stolwijk Summer Research Fellow</h3>
