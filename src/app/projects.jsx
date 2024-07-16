@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import './globals.css';
 import skinimage from "../../public/BeneathOurSkins.png";
 import howDoing from "../../public/howarewedoing.png";
-import sdgs from "../../public/sdgsforall.png";
-import gisfinal from "../../public/gisfinal.png";
 import testimony from "../../public/testimonyAI.png";
 import upkeepImage from "../../public/upkeep.jpg";
 import marathon from "../../public/marathon.jpg";
@@ -38,14 +36,14 @@ const projects = [
     title: "SDGs for All: System Dynamics Policy Analysis",
     type: 'Publication', 
     link: 'https://feps-europe.eu/publication/sdgs-for-all-strategic-scenarios/', 
-    backgroundImage: sdgs.src
+    backgroundImage: skinimage.src
   },
   { 
     description: 'Used ArcGIS Pro to analyse the impact of oil pipelines on health outcomes, land, and water, particularly tribal lands in the Dakotas.', 
     title: 'Impact of Oil Pipelines on Land and Water',
     type: 'Final Project', 
     link: 'https://drive.google.com/file/d/1Se1wvE-7JZbcfpEiqNoZrBOu-hgkWkmH/view', 
-    backgroundImage: gisfinal.src
+    backgroundImage: skinimage.src
   },
   { 
     description: 'Co-authored testimony in support of AI regulation in Connecticut. Further testimony examples available; please email me to request!', 
