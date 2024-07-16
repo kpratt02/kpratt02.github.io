@@ -4,7 +4,7 @@ import "./sidebar.css";
 import Sidebar from "./sidebar.jsx";
 import faceImage from "../../public/myface.jpeg";
 import twilioIcon from "../../public/twilio.png";
-import arcGIS from "../../public/arcgisicon.png";
+import arcGIS from "../../public/arcgisIcon.png";
 import officeIcon from "../../public/office.png";
 import serviceNow from "../../public/servicenow.png";
 import ProjectsAndPublications from "./projects.jsx"

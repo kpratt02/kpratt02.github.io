@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import './Sidebar.css';
+import './sidebar.css';
 import Footer from "./footer.jsx";
 
 
