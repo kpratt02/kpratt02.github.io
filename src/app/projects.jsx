@@ -30,7 +30,7 @@ const projects = [
     description: 'Secondary author and research team member on this project, which reports "findings and recommendations generated from the refinement and use of a structured tool for CFFs Wellness Check-ins with artists who are members of the Vermont African-American/African Diaspora Artists Network"', 
     title: "How Are We Doing?",
     type: 'Research', 
-    link: '#', 
+    link: 'https://www.clemmonsfamilyfarm.org/', 
     backgroundImage: howDoing.src
   },
   { 
@@ -117,7 +117,9 @@ const ProjectCard = ({ title, description, type, link, backgroundImage }) => {
       </div>
       <div className="back">
         <p>{description}</p>
+        {link &&
         <a href={link} target="_blank" rel="noopener noreferrer">View More</a>
+        }
       </div>
     </div>
   );
