@@ -45,7 +45,7 @@ const projects = [
     description: 'Secondary author and research team member on this project, which reports "findings and recommendations generated from... a structured tool for CFFs Wellness Check-ins with... members of the Vermont African-American/African Diaspora Artists Network"', 
     title: "How Are We Doing?",
     type: 'Research', 
-    link: 'https://www.clemmonsfamilyfarm.org/', 
+    link: 'https://www.clemmonsfamilyfarm.org/howarewedoing.html', 
     backgroundImage: howDoing.src
   },
   { 
