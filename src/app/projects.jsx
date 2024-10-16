@@ -17,7 +17,7 @@ const projects = [
     description: 'Co-authored paper, with WE ACT for Environmental Justice, examining the intersection of climate change, electrifcation, lead exposure, and health equity in NYC', 
     title: "Electrification and Lead in NYC",
     type: 'Project', 
-    link: 'https://ysph.yale.edu/yale-center-on-climate-change-and-health/policy-and-public-health-practice/ccch-housing-report_478129_284_48542_v3.pdf', 
+    link: 'https://files-profile.medicine.yale.edu/documents/fad2b048-a7ec-468e-ae14-e523bfd11db7', 
     backgroundImage: weact.src
   },
   { 
