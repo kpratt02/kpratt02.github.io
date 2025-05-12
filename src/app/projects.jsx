@@ -21,13 +21,6 @@ const projects = [
     backgroundImage: weact.src
   },
   { 
-    description: 'Co-founder of a platform to improve access to public resources and benefits for older adults and their caregivers.', 
-    title: "Upkeep Care",
-    type: 'Project', 
-    link: 'https://ysph.yale.edu/news-article/upkeep-care-awarded-2024-thorne-prize-for-innovation/', 
-    backgroundImage: upkeepImage.src
-  },
-  { 
     description: 'Used ArcGIS Pro to analyse the impact of oil pipelines on health outcomes, land, and water, particularly tribal lands in the Dakotas.', 
     title: 'Impact of Oil Pipelines on Land and Water',
     type: 'Final Project', 
@@ -56,23 +49,11 @@ const projects = [
     backgroundImage: sdgs.src
   },
   { 
-    description: 'Co-authored testimony in support of AI regulation in Connecticut. Further testimony examples available; please email me to request!', 
-    title: "Testimony in support of CT S.B. 1103 (2023)",
+    description: 'Co-authored testimony in support of CT S.B. 1103 in Connecticut. Further testimony examples available; please email me to request!', 
+    title: "Public AI Testimony",
     type: 'Publication', 
     link: 'https://www.cga.ct.gov/2023/gldata/TMY/2023SB-01103-R000228-Werner,%20Michael,%20Lead%20Aging%20Policy%20Analyst-CWCSEO-Supports-TMY.PDF', 
     backgroundImage: testimony.src
-  },
-  { 
-    description: 'Walked over 800 kms in Northern Spain on a historical pilgimage. Have also completed the Long Trail, 102/115 Northeast High Peaks, and the West Highland Way', 
-    title: "Hiking",
-    type: 'Passion', 
-    backgroundImage: camino.src
-  },
-  { 
-    description: 'Ran the Boston Marathon in spring of 2019, and have also completed several half marathons, including beating a steam train in Essex, CT this last year!', 
-    title: "Running",
-    type: 'Passion', 
-    backgroundImage: marathon.src
   }
   // Add more projects as needed
 ];
