@@ -57,6 +57,7 @@ export default function Home() {
                       <h3>Associate Product Manager</h3>
                       <h4>Coveo</h4>
                       <p>May 2019 - Oct 2020</p>
+                      <p>Oversaw 3 development teams through product development cycles and collaborated with UX designers, marketing, sales, and product specialist teams to define roadmap, improvements and priorities</p>
                     </div>
                   </div>
                 </div>
