@@ -34,6 +34,13 @@ export default function Home() {
                   <h2>Experience</h2>
                   <div className="job">
                     <div className="timeline">
+                      <h3>Technical Co-Founder</h3>
+                      <h4>Upkeep Care</h4>
+                      <p>Dec 2023 - August 2024</p>
+                      <p>Co-founded company leveraging AI to connect older adults with relevant public resources and benefits</p>
+                      <a href="https://ysph.yale.edu/news-article/upkeep-care-awarded-2024-thorne-prize-for-innovation/" target="_blank">Awarded the 2024 Thorne Prize at StartUp Yale</a>
+                    </div>
+                    <div className="timeline">
                       <h3>Community Outcomes and Feedback Advisor, Digital Platform Advisor</h3>
                       <h4>Clemmons Family Farm</h4>
                       <p>Jan 2021 - May 2024</p>
